@@ -8,7 +8,6 @@ class UserController {
 
   public createUser = (req: Request, res: Response) => {
     const userId = Date.now();
-    throw new Error('error!');
     res.send(`created user-${userId}`);
   };
 }

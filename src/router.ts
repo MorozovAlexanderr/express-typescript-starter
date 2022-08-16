@@ -4,15 +4,15 @@ import NotFoundException from './exceptions/notFound.exception';
 
 class AppRouter {
   public router: Router;
-  private _prefix: string = '/api';
+  private prefix: string = '/api';
 
   constructor() {
     this.router = Router();
-    this._initRoutes();
+    this.initRoutes();
   }
 
-  private _initRoutes() {
-    this.router.use(this._prefix, userRouter.router);
+  private initRoutes() {
+    this.router.use(this.prefix, userRouter.router);
     // handle 404 error for any unknown api request
     this.router.use((req, res, next) => {
       next(new NotFoundException());

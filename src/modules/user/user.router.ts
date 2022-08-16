@@ -1,20 +1,26 @@
 import { Router } from 'express';
 import UserController from './user.controller';
+import validate from '../../middlewares/validation.middleware';
+import { createUserValidation } from './user.validation';
 
 class UserRouter {
   public router: Router;
-  private _userController: UserController;
-  private _path: string = '/users';
+  private userController: UserController;
+  private path: string = '/users';
 
   constructor() {
     this.router = Router();
-    this._userController = new UserController();
-    this._initRoutes();
+    this.userController = new UserController();
+    this.initRoutes();
   }
 
-  private _initRoutes() {
-    this.router.get(`${this._path}/:id`, this._userController.getUserById);
-    this.router.post(`${this._path}`, this._userController.createUser);
+  private initRoutes() {
+    this.router.get(`${this.path}/:id`, this.userController.getUserById);
+    this.router.post(
+      `${this.path}`,
+      validate(createUserValidation),
+      this.userController.createUser
+    );
   }
 }
 
