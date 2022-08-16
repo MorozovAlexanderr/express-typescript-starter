@@ -8,9 +8,9 @@ class App {
 
   constructor() {
     this.app = express();
-    this.initMiddlewares();
+    this.config();
     this.routes();
-    this.initErrorHandling();
+    this.errorHandling();
   }
 
   public listen() {
@@ -23,11 +23,11 @@ class App {
     this.app.use('/', appRouter.router);
   }
 
-  private initMiddlewares() {
+  private config() {
     this.app.use(json());
   }
 
-  private initErrorHandling() {
+  private errorHandling() {
     this.app.use(errorHandlerMiddleware);
   }
 

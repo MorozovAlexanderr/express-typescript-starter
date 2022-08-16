@@ -9,5 +9,5 @@ export const createUserValidation: ValidationChain[] = [
   body('password')
     .isString()
     .isLength({ min: 7 })
-    .withMessage('Must be at least 5 chars long'),
+    .withMessage('Must be at least 7 chars long'),
 ];
