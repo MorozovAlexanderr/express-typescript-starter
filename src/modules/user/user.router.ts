@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import UserController from './user.controller';
-import validate from '../../middlewares/validation.middleware';
-import { createUserValidation } from './user.validation';
+import UserController from '@/modules/user/user.controller';
+import { createUserValidation } from '@/modules/user/user.validation';
+import validate from '@/middlewares/validation.middleware';
 
 class UserRouter {
   public router: Router;
@@ -16,11 +16,6 @@ class UserRouter {
 
   private initRoutes() {
     this.router.get(`${this.path}/:id`, this.userController.getUserById);
-    this.router.post(
-      `${this.path}`,
-      validate(createUserValidation),
-      this.userController.createUser
-    );
   }
 }
 

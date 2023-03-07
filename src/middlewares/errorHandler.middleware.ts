@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import HttpException from '../exceptions/base.exception';
 import httpStatus from 'http-status';
+import HttpException from '@/exceptions/base.exception';
 
 const errorHandlerMiddleware = (
   err: HttpException,

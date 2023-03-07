@@ -1,7 +1,8 @@
 import express, { Application, json } from 'express';
 import passport from 'passport';
-import { appRouter } from './router';
-import errorHandlerMiddleware from './middlewares/errorHandler.middleware';
+import { appRouter } from '@/router';
+import errorHandlerMiddleware from '@/middlewares/errorHandler.middleware';
+import { Database } from '@/config/database';
 
 class App {
   private readonly app: Application;
@@ -9,6 +10,8 @@ class App {
 
   constructor() {
     this.app = express();
+
+    this.databaseSetup();
     this.config();
     this.routes();
     this.errorHandling();
@@ -34,7 +37,8 @@ class App {
   }
 
   private databaseSetup() {
-    // connect to the database
+    const database = new Database();
+    database.connect();
   }
 }
 

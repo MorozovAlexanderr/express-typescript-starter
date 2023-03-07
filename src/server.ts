@@ -1,6 +1,6 @@
 import 'dotenv/config';
-import App from './app';
-import validateEnv from './utils/validateEnv';
+import App from '@/app';
+import validateEnv from '@/utils/validateEnv';
 
 validateEnv();
 

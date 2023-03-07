@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { userRouter } from './modules/user/user.router';
-import NotFoundException from './exceptions/notFound.exception';
+import { userRouter } from '@/modules/user/user.router';
+import NotFoundException from '@/exceptions/notFound.exception';
 
 class AppRouter {
   public router: Router;

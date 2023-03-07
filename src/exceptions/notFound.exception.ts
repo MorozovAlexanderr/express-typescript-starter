@@ -1,9 +1,9 @@
 import httpStatus from 'http-status';
-import HttpException from './base.exception';
+import HttpException from '@/exceptions/base.exception';
 
 class NotFoundException extends HttpException {
-  constructor() {
-    super(httpStatus.NOT_FOUND, 'Not found');
+  constructor(msg?: string) {
+    super(httpStatus.NOT_FOUND, msg || 'Not found');
   }
 }
 

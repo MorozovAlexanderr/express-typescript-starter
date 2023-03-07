@@ -1,7 +1,7 @@
 import { body, ValidationChain } from 'express-validator';
 
 export const createUserValidation: ValidationChain[] = [
-  body('name')
+  body('username')
     .isString()
     .isLength({ min: 5 })
     .withMessage('Must be at least 5 chars long'),

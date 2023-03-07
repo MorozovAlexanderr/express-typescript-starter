@@ -1,14 +1,21 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
+import { UserModel } from '@/modules/user/user.model';
+import NotFoundException from '@/exceptions/notFound.exception';
 
 class UserController {
-  public getUserById = (req: Request, res: Response) => {
+  public getUserById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
     const userId = req.params.id;
-    res.send(`user-${userId}`);
-  };
+    const user = await UserModel.findById(userId);
 
-  public createUser = (req: Request, res: Response) => {
-    const userId = Date.now();
-    res.send(`created user-${userId}`);
+    if (user) {
+      res.send(user);
+    } else {
+      next(new NotFoundException('User not found'));
+    }
   };
 }
 
