@@ -1,4 +1,5 @@
 import express, { Application, json } from 'express';
+import passport from 'passport';
 import { appRouter } from './router';
 import errorHandlerMiddleware from './middlewares/errorHandler.middleware';
 
@@ -25,6 +26,7 @@ class App {
 
   private config() {
     this.app.use(json());
+    this.app.use(passport.initialize());
   }
 
   private errorHandling() {
