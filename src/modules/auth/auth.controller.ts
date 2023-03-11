@@ -1,13 +1,30 @@
 import { NextFunction, Response } from 'express';
 import { IBodyRequest } from '@/common/types/requests.types';
-import { SignUpPayload } from '@/modules/auth/auth.types';
+import { SignInPayload, SignUpPayload } from '@/modules/auth/auth.types';
 import { UserModel } from '@/modules/user/user.model';
 import UserEmailConflictException from '@/exceptions/userEmailConflict.exception';
 import { issueJwt } from '@/modules/auth/auth.utils';
+import NotFoundException from '@/exceptions/notFound.exception';
+import UnauthorizedException from '@/exceptions/unauthorized.exception';
 
 class AuthController {
-  public signIn = () => {
-    //
+  public signIn = async (
+    { body: { email, password } }: IBodyRequest<SignInPayload>,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      return next(new NotFoundException('User not found'));
+    }
+    if (!user.comparePassword(password)) {
+      return next(new UnauthorizedException());
+    }
+
+    const { accessToken } = issueJwt(user.id);
+
+    res.json({ user: user.toJSON(), accessToken });
   };
 
   public signUp = async (
@@ -25,7 +42,7 @@ class AuthController {
 
     const { accessToken } = issueJwt(newUser.id);
 
-    return res.json({ user: newUser, accessToken });
+    return res.json({ user: newUser.toJSON(), accessToken });
   };
 }
 

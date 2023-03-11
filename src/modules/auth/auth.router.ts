@@ -1,6 +1,9 @@
 import { Router } from 'express';
 import AuthController from '@/modules/auth/auth.controller';
-import { userSignUpValidation } from '@/modules/auth/auth.validation';
+import {
+  userSignInValidation,
+  userSignUpValidation,
+} from '@/modules/auth/auth.validation';
 import validate from '@/middlewares/validation.middleware';
 
 class AuthRouter {
@@ -20,7 +23,11 @@ class AuthRouter {
       validate(userSignUpValidation),
       this.authController.signUp
     );
-    this.router.post(`${this.path}/login`, this.authController.signIn);
+    this.router.post(
+      `${this.path}/login`,
+      validate(userSignInValidation),
+      this.authController.signIn
+    );
   }
 }
 

@@ -1,7 +1,7 @@
 import passport from 'passport';
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 
-const JWT_SECRET = process.env['JWT_SECRET'];
+const JWT_SECRET = process.env.JWT_SECRET;
 
 passport.use(
   new JwtStrategy(

@@ -1,8 +1,9 @@
 import mongoose, { model, Schema } from 'mongoose';
-import { User } from '@/modules/user/user.types';
+import { User, UserMethods, TUserModel } from '@/modules/user/user.types';
 import { hashPassword } from '@/modules/auth/auth.utils';
+import { compareSync } from 'bcrypt';
 
-const userSchema = new Schema<User>(
+const userSchema = new Schema<User, TUserModel, UserMethods>(
   {
     username: String,
     email: String,
@@ -16,4 +17,14 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-export const UserModel = mongoose.model('User', userSchema);
+userSchema.methods.comparePassword = function (password: string) {
+  return compareSync(password, this.password);
+};
+
+userSchema.methods.toJSON = function () {
+  const obj = this.toObject();
+  delete obj.password;
+  return obj;
+};
+
+export const UserModel = mongoose.model<User, TUserModel>('User', userSchema);

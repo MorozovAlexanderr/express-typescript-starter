@@ -1,7 +1,6 @@
 import { genSalt, hash } from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { ObjectId } from 'mongoose';
-import 'dotenv/config';
 import { AccessToken } from '@/modules/auth/auth.types';
 
 export const hashPassword = async (password: string) => {

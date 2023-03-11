@@ -6,3 +6,9 @@ export interface User {
   email: string;
   password: string;
 }
+
+export interface UserMethods {
+  comparePassword: (password: string) => boolean;
+}
+
+export type TUserModel = Model<User, unknown, UserMethods>;

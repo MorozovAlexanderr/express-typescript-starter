@@ -12,7 +12,7 @@ class UserController {
     const user = await UserModel.findById(userId);
 
     if (user) {
-      res.send(user);
+      res.json({ user: user.toJSON });
     } else {
       return next(new NotFoundException('User not found'));
     }

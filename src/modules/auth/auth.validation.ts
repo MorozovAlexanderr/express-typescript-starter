@@ -1,5 +1,10 @@
 import { body, ValidationChain } from 'express-validator';
 
+export const userSignInValidation: ValidationChain[] = [
+  body('email').isEmail(),
+  body('password').isString(),
+];
+
 export const userSignUpValidation: ValidationChain[] = [
   body('username')
     .isString()
