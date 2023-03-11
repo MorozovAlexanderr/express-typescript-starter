@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import httpStatus from 'http-status';
 import HttpException from '@/exceptions/base.exception';
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
 const errorHandlerMiddleware = (
   err: HttpException,
@@ -8,8 +8,8 @@ const errorHandlerMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  const status = err.status || httpStatus.INTERNAL_SERVER_ERROR;
-  const message = err.message || 'Something went wrong';
+  const status = err.status || StatusCodes.INTERNAL_SERVER_ERROR;
+  const message = err.message || ReasonPhrases.INTERNAL_SERVER_ERROR;
 
   res.status(status).send({ status, message });
 };

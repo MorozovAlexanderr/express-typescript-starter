@@ -1,7 +1,5 @@
 import { Router } from 'express';
 import UserController from '@/modules/user/user.controller';
-import { createUserValidation } from '@/modules/user/user.validation';
-import validate from '@/middlewares/validation.middleware';
 
 class UserRouter {
   public router: Router;

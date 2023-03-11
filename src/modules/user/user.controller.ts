@@ -14,7 +14,7 @@ class UserController {
     if (user) {
       res.send(user);
     } else {
-      next(new NotFoundException('User not found'));
+      return next(new NotFoundException('User not found'));
     }
   };
 }

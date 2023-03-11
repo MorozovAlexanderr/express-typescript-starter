@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import AuthController from '@/modules/auth/auth.controller';
+import { userSignUpValidation } from '@/modules/auth/auth.validation';
+import validate from '@/middlewares/validation.middleware';
 
 class AuthRouter {
   public router: Router;
@@ -13,7 +15,13 @@ class AuthRouter {
   }
 
   private initRoutes() {
-    this.router.post(`${this.path}/register`, this.authController.register);
-    this.router.post(`${this.path}/login`, this.authController.login);
+    this.router.post(
+      `${this.path}/register`,
+      validate(userSignUpValidation),
+      this.authController.signUp
+    );
+    this.router.post(`${this.path}/login`, this.authController.signIn);
   }
 }
+
+export const authRouter = new AuthRouter();

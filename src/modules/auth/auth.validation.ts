@@ -1,6 +1,6 @@
 import { body, ValidationChain } from 'express-validator';
 
-export const createUserValidation: ValidationChain[] = [
+export const userSignUpValidation: ValidationChain[] = [
   body('username')
     .isString()
     .isLength({ min: 5 })
