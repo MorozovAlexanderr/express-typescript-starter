@@ -1,5 +1,5 @@
 import { NextFunction, Response } from 'express';
-import { IBodyRequest } from '@/common/types/requests.types';
+import { BodyRequest } from '@/common/types/requests.types';
 import { SignInPayload, SignUpPayload } from '@/modules/auth/auth.types';
 import { UserModel } from '@/modules/user/user.model';
 import UserEmailConflictException from '@/exceptions/userEmailConflict.exception';
@@ -9,7 +9,7 @@ import UnauthorizedException from '@/exceptions/unauthorized.exception';
 
 class AuthController {
   public signIn = async (
-    { body: { email, password } }: IBodyRequest<SignInPayload>,
+    { body: { email, password } }: BodyRequest<SignInPayload>,
     res: Response,
     next: NextFunction
   ) => {
@@ -28,7 +28,7 @@ class AuthController {
   };
 
   public signUp = async (
-    { body: { username, email, password } }: IBodyRequest<SignUpPayload>,
+    { body: { username, email, password } }: BodyRequest<SignUpPayload>,
     res: Response,
     next: NextFunction
   ) => {

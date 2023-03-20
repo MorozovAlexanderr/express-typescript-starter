@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import UserController from '@/modules/user/user.controller';
+import authenticateJwt from '@/middlewares/auth.middleware';
 
 class UserRouter {
   public router: Router;
@@ -13,7 +14,7 @@ class UserRouter {
   }
 
   private initRoutes() {
-    this.router.get(`${this.path}/:id`, this.userController.getUserById);
+    this.router.get(`${this.path}/me`, authenticateJwt, this.userController.me);
   }
 }
 

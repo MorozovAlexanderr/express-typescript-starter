@@ -11,12 +11,8 @@ export const hashPassword = async (password: string) => {
 };
 
 export const issueJwt = (id: ObjectId): AccessToken => {
-  const [secretKey, expiresIn] = [
-    process.env.JWT_SECRET as string,
-    process.env.JWT_EXPIRATION,
-  ];
-  const accessToken = jwt.sign({ id }, secretKey, {
-    expiresIn,
+  const accessToken = jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRATION,
   });
 
   return { accessToken };
