@@ -13,18 +13,22 @@ class AuthController {
     res: Response,
     next: NextFunction
   ) => {
-    const user = await UserModel.findOne({ email });
+    try {
+      const user = await UserModel.findOne({ email });
 
-    if (!user) {
-      return next(new NotFoundException('User not found'));
+      if (!user) {
+        return next(new NotFoundException('User not found'));
+      }
+      if (!user.comparePassword(password)) {
+        return next(new UnauthorizedException());
+      }
+
+      const { accessToken } = issueJwt(user.id);
+
+      res.json({ user: user.toJSON(), accessToken });
+    } catch (error) {
+      next(error);
     }
-    if (!user.comparePassword(password)) {
-      return next(new UnauthorizedException());
-    }
-
-    const { accessToken } = issueJwt(user.id);
-
-    res.json({ user: user.toJSON(), accessToken });
   };
 
   public signUp = async (
@@ -32,17 +36,21 @@ class AuthController {
     res: Response,
     next: NextFunction
   ) => {
-    const isUserExists = await UserModel.exists({ email });
+    try {
+      const isUserExists = await UserModel.exists({ email });
 
-    if (isUserExists) {
-      return next(new UserEmailConflictException());
+      if (isUserExists) {
+        return next(new UserEmailConflictException());
+      }
+
+      const newUser = await UserModel.create({ username, email, password });
+
+      const { accessToken } = issueJwt(newUser.id);
+
+      return res.json({ user: newUser.toJSON(), accessToken });
+    } catch (error) {
+      next(error);
     }
-
-    const newUser = await UserModel.create({ username, email, password });
-
-    const { accessToken } = issueJwt(newUser.id);
-
-    return res.json({ user: newUser.toJSON(), accessToken });
   };
 }
 
