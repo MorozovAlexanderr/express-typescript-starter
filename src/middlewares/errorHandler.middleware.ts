@@ -1,13 +1,12 @@
-import { Request, Response, NextFunction } from 'express';
-import HttpException from '@/exceptions/base.exception';
+import { Request, Response } from 'express';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
+import HttpException from '@/exceptions/base.exception';
 import { logger } from '@/config/logger';
 
 const errorHandlerMiddleware = (
   err: HttpException,
   req: Request,
-  res: Response,
-  next: NextFunction
+  res: Response
 ) => {
   const status = err.status || StatusCodes.INTERNAL_SERVER_ERROR;
   const message = err.message || ReasonPhrases.INTERNAL_SERVER_ERROR;

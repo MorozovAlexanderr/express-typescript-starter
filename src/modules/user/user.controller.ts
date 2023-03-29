@@ -1,11 +1,10 @@
-import { NextFunction, Request, Response } from 'express';
+import { Response } from 'express';
 import { ContextRequest, UserRequest } from '@/common/types/requests.types';
 
 class UserController {
   public me = async (
     { context: { user } }: ContextRequest<UserRequest>,
-    res: Response,
-    next: NextFunction
+    res: Response
   ) => {
     res.json({ user: user });
   };

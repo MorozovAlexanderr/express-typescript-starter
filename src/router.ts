@@ -5,7 +5,7 @@ import { authRouter } from '@/modules/auth/auth.router';
 
 class AppRouter {
   public router: Router;
-  private prefix: string = '/api';
+  private prefix = '/api';
 
   constructor() {
     this.router = Router();

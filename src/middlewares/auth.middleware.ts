@@ -1,6 +1,6 @@
 import passport from 'passport';
-import '@/config/passport';
 import { NextFunction, Request, Response } from 'express';
+import '@/config/passport';
 import UnauthorizedException from '@/exceptions/unauthorized.exception';
 
 const authenticateJwt = (req: Request, res: Response, next: NextFunction) =>

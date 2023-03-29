@@ -9,7 +9,7 @@ import validate from '@/middlewares/validation.middleware';
 class AuthRouter {
   public router: Router;
   private authController: AuthController;
-  private path: string = '/auth';
+  private path = '/auth';
 
   constructor() {
     this.router = Router();

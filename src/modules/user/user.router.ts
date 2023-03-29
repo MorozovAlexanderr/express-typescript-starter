@@ -5,7 +5,7 @@ import authenticateJwt from '@/middlewares/auth.middleware';
 class UserRouter {
   public router: Router;
   private userController: UserController;
-  private path: string = '/users';
+  private path = '/users';
 
   constructor() {
     this.router = Router();
