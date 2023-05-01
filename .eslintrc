@@ -13,7 +13,7 @@
   ],
   "rules": {
     "import/order": "warn",
-    "no-console": "error",
+    "no-console": "warn",
     "unused-imports/no-unused-imports": "warn",
     "@typescript-eslint/no-explicit-any": "off"
   },
